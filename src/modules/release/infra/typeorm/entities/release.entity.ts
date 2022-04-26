@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ReleaseCategory } from '../../../../../shared/enums/release-category.enum';
 import { Artist } from '../../../../artists/infra/typeorm/entities/artist.entity';
+import { Song } from '../../../../song/infra/typeorm/entities/song.entity';
 
 @Entity({ name: 'releases' })
 export class Release {
@@ -13,6 +14,9 @@ export class Release {
   @ManyToOne(type => Artist, artist => artist.releases)
   @JoinColumn({ name: 'artist_id' })
   artist!: Artist
+
+  @OneToMany(type => Song, song => song.release)
+  songs!: Song[]
 
   @Column()
   category!: ReleaseCategory

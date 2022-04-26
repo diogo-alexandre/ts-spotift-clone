@@ -7,8 +7,6 @@ export class TypeOrmConfig extends DataSource {
   constructor (configService: ConfigService) {
     const rootDir: string = path.resolve(__dirname, '..', '..');
 
-    console.log(configService.get('DB_HOST'));
-
     super({
       type: 'mysql',
       host: configService.get('DB_HOST'),

@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ReleaseCategory } from '../../../../../shared/enums/release-category.enum';
-import { Artist } from '../../../../artists/infra/typeorm/entities/artist.entity';
+import { Artist } from '../../../../artist/infra/typeorm/entities/artist.entity';
 import { Song } from '../../../../song/infra/typeorm/entities/song.entity';
 
 @Entity({ name: 'releases' })

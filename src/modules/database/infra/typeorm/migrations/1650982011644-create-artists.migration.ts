@@ -7,7 +7,7 @@ export class createArtistsMigration1650982011644 implements MigrationInterface {
       columns: [
         {
           name: 'id',
-          type: 'char(36)',
+          type: 'char',
           isPrimary: true,
           isGenerated: true,
           generationStrategy: 'uuid'

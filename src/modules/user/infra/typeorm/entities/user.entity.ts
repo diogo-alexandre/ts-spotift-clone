@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Playlist } from '../../../../playlist/infra/typeorm/entities/playlist.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -16,6 +17,9 @@ export class User {
 
   @Column()
   isVerified!: boolean
+
+  @OneToMany(type => Playlist, playlist => playlist.user)
+  playlists!: Playlist[]
 
   @CreateDateColumn()
   createdAt!: Date

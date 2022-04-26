@@ -1,0 +1,36 @@
+{
+  "name": "ts-spotify-clone",
+  "version": "1.0.0",
+  "main": "dist/Server.js",
+  "license": "MIT",
+  "author": "Diogo Alexandre <diogo.alexandre023@gmail.com>",
+  "scripts": {
+    "build": "tsc",
+    "start": "node -e \"require('./dist/Server.js').default.init()\"",
+    "start:dev": "nodemon",
+    "aws": "aws --endpoint=\"http://localhost:4566\""
+  },
+  "dependencies": {
+    "@nestjs/common": "^8.4.4",
+    "@nestjs/config": "^2.0.0",
+    "@nestjs/core": "^8.4.4",
+    "@nestjs/platform-express": "^8.4.4",
+    "@nestjs/typeorm": "^8.0.3",
+    "eslint-plugin-node": "^11.1.0",
+    "mysql2": "^2.3.3",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.5.5",
+    "typeorm": "^0.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.27",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "eslint": "^8.0.1",
+    "eslint-config-standard-with-typescript": "^21.0.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-promise": "^6.0.0",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  }
+}

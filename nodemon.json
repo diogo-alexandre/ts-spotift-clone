@@ -1,0 +1,6 @@
+{
+  "watch": ["src"],
+  "ext": "ts,json",
+  "ignore": ["src/**/*.spec.ts"],
+  "exec": "ts-node -e \"console.clear(); require('.\/src\/Server.ts').default.init()\""
+}

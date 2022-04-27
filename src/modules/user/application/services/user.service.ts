@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import bcrypt from 'bcryptjs';
 
 import { CreateUserDTO } from '../../presentation/dtos/create-user.dto';
@@ -17,5 +17,15 @@ export class UserService {
       ...userDTO,
       password: await bcrypt.hash(userDTO.password, 8)
     });
+  }
+
+  async findByEmail (email: string): Promise<User> {
+    const user = await this.userRepository.findByEmail(email);
+
+    if (user === null) {
+      throw new NotFoundException(`User cannot be found with email = "${email}"`);
+    }
+
+    return user;
   }
 }

@@ -3,4 +3,5 @@ import { CreateUserDTO } from '../../presentation/dtos/create-user.dto';
 
 export interface IUserRepository {
   create: (userDTO: CreateUserDTO) => Promise<User>
+  findByEmail: (email: string) => Promise<User | null>
 }

@@ -6,6 +6,7 @@ import { SignService } from './application/services/sign.service';
 import { UserModule } from '../user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthConstant } from '../../shared/constants/auth.constant';
+import { JwtStrategy } from './application/strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -16,9 +17,7 @@ import { AuthConstant } from '../../shared/constants/auth.constant';
       signOptions: { expiresIn: AuthConstant.expiresIn }
     })
   ],
-  providers: [
-    SignService
-  ],
+  providers: [SignService, JwtStrategy],
   controllers: [SignController]
 })
 export class SignModule { }

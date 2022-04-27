@@ -23,7 +23,7 @@ export class SignService {
     }
 
     return {
-      access_token: this.jwtService.sign({ ...Profile.parse(user) }),
+      access_token: this.jwtService.sign({ id: user.id }),
       expiresIn: AuthConstant.expiresIn,
       type: AuthConstant.type
     };

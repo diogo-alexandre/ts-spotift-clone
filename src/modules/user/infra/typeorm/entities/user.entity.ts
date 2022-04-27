@@ -16,7 +16,7 @@ export class User {
   @Column()
   password!: string
 
-  @Column()
+  @Column({ default: false })
   isVerified!: boolean
 
   @OneToMany(type => Artist, artist => artist.user)

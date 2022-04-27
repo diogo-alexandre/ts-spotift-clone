@@ -1,5 +1,6 @@
 import { Expose, plainToInstance } from 'class-transformer';
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Artist } from '../../../../artist/infra/typeorm/entities/artist.entity';
 
 import { User } from './user.entity';
 
@@ -16,6 +17,9 @@ export class Profile {
   @Column()
   @Expose()
   isVerified!: boolean
+
+  @OneToMany(type => Artist, artist => artist.profile)
+  artists!: Artist[]
 
   @CreateDateColumn()
   @Expose()

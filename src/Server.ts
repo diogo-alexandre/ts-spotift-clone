@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
 import { AppModule } from './app.module';
+import { QueryExceptionFilter } from './shared/filters/query-exception.filter';
 import ValidationPipe from './shared/pipes/validation.pipe';
 
 class Server {
@@ -11,6 +12,7 @@ class Server {
 
     app.setGlobalPrefix('/api');
     app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalFilters(new QueryExceptionFilter());
 
     await app.listen(port);
   }

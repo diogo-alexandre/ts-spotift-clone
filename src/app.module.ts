@@ -7,6 +7,7 @@ import { ReleaseModule } from './modules/release/release.module';
 import { SongModule } from './modules/song/song.module';
 import { UserModule } from './modules/user/user.module';
 import { PlaylistModule } from './modules/playlist/playlist.module';
+import { SignModule } from './modules/sign/sign.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { PlaylistModule } from './modules/playlist/playlist.module';
     ReleaseModule,
     SongModule,
     UserModule,
-    PlaylistModule
+    PlaylistModule,
+    SignModule
   ]
 })
 export class AppModule {}

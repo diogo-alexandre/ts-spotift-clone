@@ -4,7 +4,7 @@ import { Playlist } from '../../../../playlist/infra/typeorm/entities/playlist.e
 
 @Entity({ name: 'users' })
 export class User {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn('uuid')
   id!: string
 
   @Column()

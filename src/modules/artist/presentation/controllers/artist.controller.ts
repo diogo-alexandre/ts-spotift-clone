@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { User } from '../../../../shared/decorators/user.decorator';
 import { JwtGuard } from '../../../sign/application/guards/jwt.guard';
 import { Profile } from '../../../user/infra/typeorm/entities/profile.entity';
@@ -16,5 +16,10 @@ export class ArtistController {
   @UseGuards(JwtGuard)
   async create (@User() user: Profile, @Body() artistDTO: CreateArtistDTO): Promise<Artist> {
     return await this.artistService.create(artistDTO, user);
+  }
+
+  @Get('/:id')
+  async detail (@Param('id') id: string): Promise<Artist> {
+    return await this.artistService.detail(id);
   }
 }

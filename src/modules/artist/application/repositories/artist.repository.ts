@@ -4,4 +4,5 @@ import { CreateArtistDTO } from '../../presentation/dtos/create-artist.dto';
 
 export interface IArtistRepository {
   create: (artistDTO: CreateArtistDTO, profile: Profile) => Promise<Artist>
+  detail: (id: string) => Promise<Artist | null>
 }

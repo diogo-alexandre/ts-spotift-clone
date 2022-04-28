@@ -21,4 +21,8 @@ export class ArtistRepository implements IArtistRepository {
 
     return await this.artistRepository.save(artist);
   }
+
+  async detail (id: string): Promise<Artist | null> {
+    return await this.artistRepository.findOneBy({ id });
+  }
 }

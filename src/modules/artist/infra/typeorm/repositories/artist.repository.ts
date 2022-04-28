@@ -23,6 +23,9 @@ export class ArtistRepository implements IArtistRepository {
   }
 
   async detail (id: string): Promise<Artist | null> {
-    return await this.artistRepository.findOneBy({ id });
+    return await this.artistRepository.findOne({
+      where: { id },
+      relations: ['profile']
+    });
   }
 }

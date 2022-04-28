@@ -15,6 +15,7 @@ import { ArtistController } from './presentation/controllers/artist.controller';
       provide: 'IArtistRepository',
       useClass: ArtistRepository
     }
-  ]
+  ],
+  exports: [ArtistService]
 })
 export class ArtistModule { }

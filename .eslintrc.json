@@ -6,6 +6,7 @@
   "rules": {
     "@typescript-eslint/no-extraneous-class": "off",
     "@typescript-eslint/semi": "off",
+    "@typescript-eslint/indent": "off",
     "semi": [2, "always"]
   }
 }

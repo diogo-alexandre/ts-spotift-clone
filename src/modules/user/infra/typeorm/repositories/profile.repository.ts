@@ -11,6 +11,8 @@ export class ProfileRepository implements IProfileRepository {
   ) { }
 
   async findById (id: string): Promise<Profile | null> {
-    return await this.userRepository.findOneBy({ id });
+    return await this.userRepository.findOne({
+      where: { id }
+    });
   }
 }

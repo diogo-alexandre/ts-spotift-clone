@@ -4,4 +4,5 @@ import { CreateReleaseDTO } from '../../presentation/dtos/create-release.dto';
 
 export interface IReleaseRepository {
   create: (releaseDTO: CreateReleaseDTO, artist: Artist) => Promise<Release>
+  findById: (id: string) => Promise<Release | null>
 }

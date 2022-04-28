@@ -1,4 +1,4 @@
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { ArtistService } from '../../../artist/application/services/artist.service';
 import { Profile } from '../../../user/infra/typeorm/entities/profile.entity';
 import { Release } from '../../infra/typeorm/entities/release.entity';
@@ -22,5 +22,15 @@ export class ReleaseService {
     }
 
     return await this.releaseRepository.create(releaseDTO, artist);
+  }
+
+  async detail (id: string): Promise<Release> {
+    const release = await this.releaseRepository.findById(id);
+
+    if (release === null) {
+      throw new NotFoundException(`Release can not be found with id = "${id}"`);
+    }
+
+    return release;
   }
 }

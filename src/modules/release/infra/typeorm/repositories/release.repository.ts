@@ -21,4 +21,10 @@ export class ReleaseRepository implements IReleaseRepository {
 
     return await this.releaseRepository.save(release);
   }
+
+  async findById (id: string): Promise<Release | null> {
+    return await this.releaseRepository.findOne({
+      where: { id }
+    });
+  }
 }

@@ -22,7 +22,7 @@ export class Artist {
   @Column(({ default: '' }))
   about!: string
 
-  @Column()
+  @Column(({ default: 'false' }))
   isVerified!: boolean
 
   @OneToMany(type => Release, release => release.artist)

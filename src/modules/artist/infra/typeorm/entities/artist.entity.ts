@@ -11,7 +11,7 @@ export class Artist {
   @PrimaryGeneratedColumn('uuid')
   id!: string
 
-  @ManyToOne(type => Profile, profile => profile.artists)
+  @ManyToOne(type => Profile, profile => profile.artists, { eager: true })
   @JoinColumn({ name: 'user_id' })
   @Exclude()
   profile!: User

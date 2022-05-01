@@ -24,7 +24,8 @@ export class ReleaseRepository implements IReleaseRepository {
 
   async findById (id: string): Promise<Release | null> {
     return await this.releaseRepository.findOne({
-      where: { id }
+      where: { id },
+      relations: ['artist']
     });
   }
 }

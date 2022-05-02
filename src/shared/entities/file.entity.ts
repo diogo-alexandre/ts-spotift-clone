@@ -1,5 +1,6 @@
 import { Expose } from 'class-transformer';
-import { createReadStream, ReadStream, unlinkSync } from 'fs';
+import { createReadStream, ReadStream } from 'fs';
+import { unlink } from 'fs/promises';
 import { join } from 'path';
 
 export class File {
@@ -39,7 +40,7 @@ export class File {
     return createReadStream(join(this.path, this.id) + `.${this.ext}`);
   }
 
-  delete (): void {
-    unlinkSync(join(this.path, this.id) + `.${this.ext}`);
+  async delete (): Promise<void> {
+    return await unlink(join(this.path, this.id) + `.${this.ext}`);
   }
 }

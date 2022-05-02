@@ -1,7 +1,9 @@
 import { ConfigService } from '@nestjs/config';
 import { Endpoint, S3 } from 'aws-sdk';
 
-export function AwsS3Config (configService: ConfigService): S3.ClientConfiguration {
+export function S3Config (configService: ConfigService): S3.ClientConfiguration {
+  console.log(configService.get('AWS_ACCESS_KEY_ID'));
+
   return {
     credentials: {
       accessKeyId: configService.get('AWS_ACCESS_KEY_ID') ?? '',

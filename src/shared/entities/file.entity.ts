@@ -1,13 +1,27 @@
-import { createReadStream, ReadStream } from 'fs';
+import { Expose } from 'class-transformer';
+import { createReadStream, ReadStream, unlinkSync } from 'fs';
 import { join } from 'path';
 
 export class File {
+  @Expose()
   id: string
+
+  @Expose()
   name: string
+
+  @Expose()
   ext: string
+
+  @Expose()
   mimetype: string
+
+  @Expose()
   size: number
+
+  @Expose()
   path: string
+
+  @Expose()
   createdAt: Date
 
   constructor (id: string, name: string, ext: string, mimetype: string, size: number, path: string) {
@@ -20,7 +34,12 @@ export class File {
     this.createdAt = new Date();
   }
 
+  @Expose()
   get stream (): ReadStream {
     return createReadStream(join(this.path, this.id) + `.${this.ext}`);
+  }
+
+  delete (): void {
+    unlinkSync(join(this.path, this.id) + `.${this.ext}`);
   }
 }

@@ -11,9 +11,9 @@ export class MediaService {
     private readonly mediaRepository: IMediaRepository
   ) { }
 
-  async create (file: File): Promise<Media> {
-    const media = Media.parse(file);
-    return await this.mediaRepository.create(media);
+  async create (files: File[]): Promise<Media[]> {
+    const medias = files.map(file => Media.parse(file));
+    return await this.mediaRepository.create(medias);
   }
 
   async findByPath (path: string): Promise<Media> {

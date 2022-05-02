@@ -1,5 +1,6 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Artist } from '../../../../artist/infra/typeorm/entities/artist.entity';
+import { Media } from '../../../../medias/infra/typeorm/entities/media.entity';
 import { Playlist } from '../../../../playlist/infra/typeorm/entities/playlist.entity';
 import { Release } from '../../../../release/infra/typeorm/entities/release.entity';
 
@@ -13,6 +14,10 @@ export class Song {
 
   @Column()
   duration!: number
+
+  @OneToOne(type => Media)
+  @JoinColumn({ name: 'media_id' })
+  media!: Media
 
   @ManyToOne(type => Release, release => release.songs)
   @JoinColumn({ name: 'release_id' })

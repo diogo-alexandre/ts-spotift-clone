@@ -16,6 +16,10 @@ export class MediaService {
     return await this.mediaRepository.create(medias);
   }
 
+  async save (media: Media): Promise<Media> {
+    return (await this.mediaRepository.create([media]))[0];
+  }
+
   async findByPath (path: string): Promise<Media> {
     const media = await this.mediaRepository.findByPath(path);
 

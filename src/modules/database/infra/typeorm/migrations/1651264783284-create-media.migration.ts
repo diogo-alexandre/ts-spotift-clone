@@ -1,9 +1,9 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class createFilesMigration1651264783284 implements MigrationInterface {
+export class createMediaMigration1651264783284 implements MigrationInterface {
     public async up (queryRunner: QueryRunner): Promise<void> {
       await queryRunner.createTable(new Table({
-        name: 'files',
+        name: 'medias',
         columns: [
           {
             name: 'id',
@@ -28,14 +28,15 @@ export class createFilesMigration1651264783284 implements MigrationInterface {
             isNullable: false
           },
           {
+            name: 'source',
+            type: 'varchar(255)',
+            isNullable: false,
+            isUnique: true
+          },
+          {
             name: 'size',
             type: 'int',
             unsigned: true,
-            isNullable: false
-          },
-          {
-            name: 'path',
-            type: 'varchar(72)',
             isNullable: false
           },
           {
@@ -49,6 +50,6 @@ export class createFilesMigration1651264783284 implements MigrationInterface {
     }
 
     public async down (queryRunner: QueryRunner): Promise<void> {
-      await queryRunner.dropTable('files');
+      await queryRunner.dropTable('medias');
     }
 }

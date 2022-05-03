@@ -1,7 +1,10 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { PaginationDTO } from '../../../../shared/dtos/pagination.dto';
+import { Paginate } from '../../../../shared/interfaces/paginate.interface';
 import { Profile } from '../../../user/infra/typeorm/entities/profile.entity';
 import { Artist } from '../../infra/typeorm/entities/artist.entity';
 import { CreateArtistDTO } from '../../presentation/dtos/create-artist.dto';
+import { QueryArtistDTO } from '../../presentation/dtos/query-artist.dto';
 import { IArtistRepository } from '../repositories/artist.repository';
 
 @Injectable()
@@ -23,5 +26,9 @@ export class ArtistService {
     }
 
     return artist;
+  }
+
+  async find (query: QueryArtistDTO, pagination: PaginationDTO): Promise<Paginate<Artist>> {
+    return await this.artistRepository.find(query, pagination);
   }
 }

@@ -6,7 +6,7 @@
   "author": "Diogo Alexandre <diogo.alexandre023@gmail.com>",
   "scripts": {
     "build": "tsc",
-    "start": "node -e \"require('./dist/Server.js').default.init()\"",
+    "start": "node --transpileOnly -e \"require('./dist/Server.js').default.init()\"",
     "start:dev": "nodemon",
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
     "aws": "aws --endpoint=\"http://localhost:4566\""

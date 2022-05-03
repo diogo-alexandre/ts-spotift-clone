@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { PaginationDTO } from '../../../../../shared/dtos/pagination.dto';
+import { Paginate } from '../../../../../shared/interfaces/paginate.interface';
 import { Profile } from '../../../../user/infra/typeorm/entities/profile.entity';
 import { IArtistRepository } from '../../../application/repositories/artist.repository';
 import { CreateArtistDTO } from '../../../presentation/dtos/create-artist.dto';
+import { QueryArtistDTO } from '../../../presentation/dtos/query-artist.dto';
 import { Artist } from '../entities/artist.entity';
 
 @Injectable()
@@ -27,5 +30,20 @@ export class ArtistRepository implements IArtistRepository {
       where: { id },
       relations: ['profile']
     });
+  }
+
+  async find ({ query }: QueryArtistDTO, pagination: PaginationDTO): Promise<Paginate<Artist>> {
+    const limit = pagination.limit ?? 10;
+    const page = pagination.page ?? 10;
+
+    const [artists, total] = await this.artistRepository.findAndCount({ where: query, take: limit, skip: (page - 1) * limit });
+
+    return {
+      data: artists,
+      total,
+      limit,
+      page,
+      pages: Math.ceil(total / limit)
+    };
   }
 }

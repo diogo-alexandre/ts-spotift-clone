@@ -12,7 +12,7 @@ class Server {
     const port = process.env.PORT ?? 3333;
 
     app.setGlobalPrefix('/api');
-    app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
     app.useGlobalFilters(new QueryExceptionFilter());
     app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 

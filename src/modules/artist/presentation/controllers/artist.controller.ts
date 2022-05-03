@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 
 import { Profile } from '../../../user/infra/typeorm/entities/profile.entity';
 import { Paginate } from '../../../../shared/interfaces/paginate.interface';
@@ -30,5 +30,11 @@ export class ArtistController {
   @Get()
   async index (@Query() query: QueryArtistDTO, @Query() pagination: PaginationDTO): Promise<Paginate<Artist>> {
     return await this.artistService.find(query, pagination);
+  }
+
+  @Delete('/:id')
+  @UseGuards(JwtGuard)
+  async remove (@User() user: Profile, @Param('id') id: string): Promise<Artist> {
+    return await this.artistService.remove(id, user);
   }
 }

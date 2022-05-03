@@ -9,4 +9,5 @@ export interface IArtistRepository {
   create: (artistDTO: CreateArtistDTO, profile: Profile) => Promise<Artist>
   detail: (id: string) => Promise<Artist | null>
   find: (query: QueryArtistDTO, paginate: PaginationDTO) => Promise<Paginate<Artist>>
+  delete: (artist: Artist) => Promise<Artist>
 }

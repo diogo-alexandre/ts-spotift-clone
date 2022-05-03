@@ -27,8 +27,7 @@ export class ArtistRepository implements IArtistRepository {
 
   async detail (id: string): Promise<Artist | null> {
     return await this.artistRepository.findOne({
-      where: { id },
-      relations: ['profile']
+      where: { id }
     });
   }
 
@@ -45,5 +44,10 @@ export class ArtistRepository implements IArtistRepository {
       page,
       pages: Math.ceil(total / limit)
     };
+  }
+
+  async delete (artist: Artist): Promise<Artist> {
+    return await this.artistRepository.delete(artist)
+      .then(() => artist);
   }
 }

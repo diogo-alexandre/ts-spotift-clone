@@ -1,5 +1,5 @@
 import { Exclude } from 'class-transformer';
-import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 import { Release } from '../../../../release/infra/typeorm/entities/release.entity';
 import { Profile } from '../../../../user/infra/typeorm/entities/profile.entity';
@@ -29,10 +29,10 @@ export class Artist {
   @Column(({ default: 'false' }))
   isVerified!: boolean
 
-  @OneToMany(type => Release, release => release.artist)
+  @OneToMany(type => Release, release => release.artist, { onDelete: 'CASCADE' })
   releases!: Release[]
 
-  @ManyToMany(type => Song, song => song.participants)
+  @ManyToMany(type => Song, song => song.participants, { onDelete: 'CASCADE' })
   @JoinTable({ name: 'song_has_artists' })
   songs!: Song[]
 
@@ -41,4 +41,7 @@ export class Artist {
 
   @UpdateDateColumn()
   updatedAt!: Date
+
+  @DeleteDateColumn()
+  deletedAt!: Date
 }

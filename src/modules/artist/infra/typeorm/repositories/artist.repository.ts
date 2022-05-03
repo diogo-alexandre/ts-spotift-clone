@@ -47,7 +47,7 @@ export class ArtistRepository implements IArtistRepository {
   }
 
   async delete (artist: Artist): Promise<Artist> {
-    return await this.artistRepository.delete(artist)
+    return await this.artistRepository.softRemove(artist)
       .then(() => artist);
   }
 }

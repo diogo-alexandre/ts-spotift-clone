@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 
 import { Profile } from '../../../user/infra/typeorm/entities/profile.entity';
 import { Paginate } from '../../../../shared/interfaces/paginate.interface';
@@ -9,6 +9,7 @@ import { Artist } from '../../infra/typeorm/entities/artist.entity';
 import { CreateArtistDTO } from '../dtos/create-artist.dto';
 import { QueryArtistDTO } from '../dtos/query-artist.dto';
 import { PaginationDTO } from '../../../../shared/dtos/pagination.dto';
+import { UpdateArtistDTO } from '../dtos/update-artist.dto';
 
 @Controller('/artists')
 export class ArtistController {
@@ -36,5 +37,11 @@ export class ArtistController {
   @UseGuards(JwtGuard)
   async remove (@User() user: Profile, @Param('id') id: string): Promise<Artist> {
     return await this.artistService.remove(id, user);
+  }
+
+  @Put('/:id')
+  @UseGuards(JwtGuard)
+  async update (@User() user: Profile, @Param('id') id: string, @Body() payload: UpdateArtistDTO): Promise<Artist> {
+    return await this.artistService.update(id, payload, user);
   }
 }

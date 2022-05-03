@@ -50,4 +50,11 @@ export class ArtistRepository implements IArtistRepository {
     return await this.artistRepository.softRemove(artist)
       .then(() => artist);
   }
+
+  async update (artist: Artist, payload: CreateArtistDTO): Promise<Artist> {
+    return await this.artistRepository.save({
+      ...artist,
+      ...payload
+    });
+  }
 }

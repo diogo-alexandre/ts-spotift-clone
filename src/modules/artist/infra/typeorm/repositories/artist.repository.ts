@@ -33,7 +33,7 @@ export class ArtistRepository implements IArtistRepository {
 
   async find ({ query }: QueryArtistDTO, pagination: PaginationDTO): Promise<Paginate<Artist>> {
     const limit = pagination.limit ?? 10;
-    const page = pagination.page ?? 10;
+    const page = pagination.page ?? 1;
 
     const [artists, total] = await this.artistRepository.findAndCount({ where: query, take: limit, skip: (page - 1) * limit });
 

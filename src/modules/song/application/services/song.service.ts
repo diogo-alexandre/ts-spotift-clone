@@ -1,4 +1,4 @@
-import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 
 import { ReleaseService } from '../../../release/application/services/release.service';
 import { Profile } from '../../../user/infra/typeorm/entities/profile.entity';
@@ -30,6 +30,10 @@ export class SongService {
       throw new NotFoundException(`Release can not be found with id = "${payload.releaseId}"`);
     }
 
+    if (release.artist.userId !== user.id) {
+      throw new UnauthorizedException('You not have authorization to perform this action.');
+    }
+
     const notExists: Array<{ id: string, index: number}> = [];
 
     const participants = await Promise.all(
@@ -57,7 +61,7 @@ export class SongService {
     return await this.storageService.upload(source)
       .then(async media => await this.songRepository.create({
         name: payload.name,
-        participants: participants.filter(participant => participant !== null) as Artist[],
+        participants: participants.filter(participant => participant !== undefined) as Artist[],
         release
       }, media));
   }

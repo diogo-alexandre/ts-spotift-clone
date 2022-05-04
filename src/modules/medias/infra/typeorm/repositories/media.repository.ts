@@ -12,10 +12,8 @@ export class MediaRepository implements IMediaRepository {
     private readonly mediaRepository: Repository<Media>
   ) { }
 
-  async create (medias: Media[]): Promise<Media[]> {
-    return await this.mediaRepository.manager.transaction(async transaction => {
-      return await transaction.save(medias);
-    });
+  async create (media: Media): Promise<Media> {
+    return await this.mediaRepository.save(media);
   }
 
   async findByPath (path: string): Promise<Media | null> {

@@ -3,21 +3,19 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { IMediaRepository } from '../repositories/media.repository';
 import { Media } from '../../infra/typeorm/entities/media.entity';
 import { File } from '../../../../shared/entities/file.entity';
+import { StorageService } from '../../../storage/application/services/storage.service';
 
 @Injectable()
 export class MediaService {
   constructor (
     @Inject('IMediaRepository')
-    private readonly mediaRepository: IMediaRepository
+    private readonly mediaRepository: IMediaRepository,
+    private readonly storageService: StorageService
   ) { }
 
-  async create (files: File[]): Promise<Media[]> {
-    const medias = files.map(file => Media.parse(file));
-    return await this.mediaRepository.create(medias);
-  }
-
-  async save (media: Media): Promise<Media> {
-    return (await this.mediaRepository.create([media]))[0];
+  async create (file: File): Promise<Media> {
+    return await this.storageService.upload(file)
+      .then(async media => await this.mediaRepository.create(media));
   }
 
   async findByPath (path: string): Promise<Media> {

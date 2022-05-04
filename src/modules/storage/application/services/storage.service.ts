@@ -15,7 +15,6 @@ export class StorageService {
     ) { }
 
   async upload (file: File): Promise<Media> {
-    return await this.storageRepository.upload(file)
-      .then(async media => await this.mediaService.save(media));
+    return await this.storageRepository.upload(file);
   }
 }

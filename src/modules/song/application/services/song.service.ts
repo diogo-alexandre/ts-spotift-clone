@@ -5,13 +5,13 @@ import { Profile } from '../../../user/infra/typeorm/entities/profile.entity';
 import { ISongRepository } from '../repositories/song.repository';
 import { Song } from '../../infra/typeorm/entities/song.entity';
 import { File } from '../../../../shared/entities/file.entity';
-import { StorageService } from '../../../storage/application/services/storage.service';
 import { QuerySongDTO } from '../../presentation/dtos/query-song.dto';
 import { PaginationDTO } from '../../../../shared/dtos/pagination.dto';
 import { Paginate } from '../../../../shared/interfaces/paginate.interface';
 import { CreateSongDTO } from '../../presentation/dtos/create-song.dto';
 import { ArtistService } from '../../../artist/application/services/artist.service';
 import { Artist } from '../../../artist/infra/typeorm/entities/artist.entity';
+import { MediaService } from '../../../medias/application/services/media.service';
 
 @Injectable()
 export class SongService {
@@ -20,7 +20,7 @@ export class SongService {
     private readonly songRepository: ISongRepository,
     private readonly artistService: ArtistService,
     private readonly releaseService: ReleaseService,
-    private readonly storageService: StorageService
+    private readonly mediaService: MediaService
   ) { }
 
   async create (user: Profile, payload: CreateSongDTO, source: File): Promise<Song> {
@@ -58,12 +58,16 @@ export class SongService {
 
     participants.push(release.artist);
 
-    return await this.storageService.upload(source)
-      .then(async media => await this.songRepository.create({
-        name: payload.name,
-        participants: participants.filter(participant => participant !== undefined) as Artist[],
-        release
-      }, media));
+    return await this.mediaService.create(source)
+        .then(async media => {
+          const song = {
+            name: payload.name,
+            participants: participants.filter(participant => participant !== undefined) as Artist[],
+            release
+          };
+
+          return await this.songRepository.create(song, media);
+        });
   }
 
   async find (query: QuerySongDTO, pagination: PaginationDTO): Promise<Paginate<Song>> {

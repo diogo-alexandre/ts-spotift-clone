@@ -24,7 +24,11 @@ export class Song {
   release!: Release
 
   @ManyToMany(type => Artist, artist => artist.songs, { eager: true })
-  @JoinTable({ name: 'song_has_artists' })
+  @JoinTable({
+    name: 'song_has_artists',
+    joinColumn: { name: 'song_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'artist_id', referencedColumnName: 'id' }
+  })
   participants!: Artist[]
 
   @ManyToMany(type => Playlist, playlist => playlist.songs)

@@ -1,12 +1,14 @@
-import { IsOptional, IsString, IsUUID, Length } from 'class-validator';
+import { Artist } from '../../../artist/infra/typeorm/entities/artist.entity';
+import { Release } from '../../../release/infra/typeorm/entities/release.entity';
 
 export class SongDTO {
-  @IsString()
-  @Length(1, 30)
-  @IsOptional()
-  name?: string
+  name!: string
+  release!: Release
+  participants!: Artist[]
 
-  @IsString()
-  @IsUUID(4)
-  releaseId!: string
+  constructor (name: string, release: Release, participants: Artist[]) {
+    this.name = name;
+    this.release = release;
+    this.participants = participants;
+  }
 }

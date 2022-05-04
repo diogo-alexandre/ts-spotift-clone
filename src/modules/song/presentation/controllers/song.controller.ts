@@ -7,7 +7,7 @@ import { JwtGuard } from '../../../sign/application/guards/jwt.guard';
 import { User } from '../../../../shared/decorators/user.decorator';
 import { File } from '../../../../shared/entities/file.entity';
 import { Song } from '../../infra/typeorm/entities/song.entity';
-import { SongDTO } from '../dtos/song.dto';
+import { CreateSongDTO } from '../dtos/create-song.dto';
 import { Source } from '../../../../shared/decorators/file.decorator';
 import { Paginate } from '../../../../shared/interfaces/paginate.interface';
 import { QuerySongDTO } from '../dtos/query-song.dto';
@@ -22,7 +22,7 @@ export class SongController {
   @Post()
   @UseGuards(JwtGuard)
   @UseInterceptors(FileInterceptor('source'))
-  async create (@User() user: Profile, @Source() source: File, @Body() songDTO: SongDTO): Promise<Song> {
+  async create (@User() user: Profile, @Source() source: File, @Body() songDTO: CreateSongDTO): Promise<any> {
     return await this.songService.create(user, songDTO, source);
   }
 

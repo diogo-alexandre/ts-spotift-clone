@@ -6,6 +6,6 @@ import { QuerySongDTO } from '../../presentation/dtos/query-song.dto';
 import { SongDTO } from '../../presentation/dtos/song.dto';
 
 export interface ISongRepository {
-  create: (songDTO: SongDTO, media: Media) => Promise<Song>
+  create: (song: SongDTO, media: Media) => Promise<Song>
   find: (query: QuerySongDTO, paginate: PaginationDTO) => Promise<Paginate<Song>>
 }

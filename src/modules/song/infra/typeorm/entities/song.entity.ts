@@ -23,7 +23,7 @@ export class Song {
   @JoinColumn({ name: 'release_id' })
   release!: Release
 
-  @ManyToMany(type => Artist, artist => artist.songs, { eager: true })
+  @ManyToMany(type => Artist, artist => artist.songs, { eager: true, cascade: true })
   @JoinTable({
     name: 'song_has_artists',
     joinColumn: { name: 'song_id', referencedColumnName: 'id' },

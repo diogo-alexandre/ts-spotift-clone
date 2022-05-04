@@ -4,11 +4,11 @@ import { Repository } from 'typeorm';
 
 import { ISongRepository } from '../../../application/repositories/song.repository';
 import { Media } from '../../../../medias/infra/typeorm/entities/media.entity';
-import { SongDTO } from '../../../presentation/dtos/song.dto';
 import { Song } from '../entities/song.entity';
 import { QuerySongDTO } from '../../../presentation/dtos/query-song.dto';
 import { PaginationDTO } from '../../../../../shared/dtos/pagination.dto';
 import { Paginate } from '../../../../../shared/interfaces/paginate.interface';
+import { SongDTO } from '../../../presentation/dtos/song.dto';
 
 @Injectable()
 export class SongRepository implements ISongRepository {
@@ -17,10 +17,9 @@ export class SongRepository implements ISongRepository {
     private readonly songRepository: Repository<Song>
   ) { }
 
-  async create (payload: SongDTO, media: Media): Promise<Song> {
+  async create (songDTO: SongDTO, media: Media): Promise<Song> {
     const song = this.songRepository.create({
-      name: payload.name ?? media.name,
-      release: { id: payload.releaseId },
+      ...songDTO,
       media,
       duration: 0
     });

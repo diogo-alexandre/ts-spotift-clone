@@ -1,8 +1,11 @@
 import { Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { PaginationDTO } from '../../../../shared/dtos/pagination.dto';
+import { Paginate } from '../../../../shared/interfaces/paginate.interface';
 import { ArtistService } from '../../../artist/application/services/artist.service';
 import { Profile } from '../../../user/infra/typeorm/entities/profile.entity';
 import { Release } from '../../infra/typeorm/entities/release.entity';
 import { CreateReleaseDTO } from '../../presentation/dtos/create-release.dto';
+import { QueryReleaseDTO } from '../../presentation/dtos/query-release.dto';
 
 import { IReleaseRepository } from '../repositories/release.repository';
 
@@ -32,5 +35,9 @@ export class ReleaseService {
     }
 
     return release;
+  }
+
+  async find (query: QueryReleaseDTO, pagination: PaginationDTO): Promise<Paginate<Release>> {
+    return await this.releaseRepository.find(query, pagination);
   }
 }

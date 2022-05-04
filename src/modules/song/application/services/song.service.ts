@@ -34,6 +34,8 @@ export class SongService {
       throw new UnauthorizedException('You not have authorization to perform this action.');
     }
 
+    console.log(release.songs);
+
     const notExists: Array<{ id: string, index: number}> = [];
 
     const participants = await Promise.all(

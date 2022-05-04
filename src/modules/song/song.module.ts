@@ -7,12 +7,14 @@ import { SongController } from './presentation/controllers/song.controller';
 import { SongService } from './application/services/song.service';
 import { ReleaseModule } from '../release/release.module';
 import { ArtistModule } from '../artist/artist.module';
+import { MediaModule } from '../medias/media.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Song]),
     ArtistModule,
-    ReleaseModule
+    ReleaseModule,
+    MediaModule
   ],
   controllers: [SongController],
   providers: [

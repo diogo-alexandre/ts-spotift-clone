@@ -15,7 +15,7 @@ export class Release {
   @JoinColumn({ name: 'artist_id' })
   artist!: Artist
 
-  @OneToMany(type => Song, song => song.release)
+  @OneToMany(type => Song, song => song.release, { lazy: true })
   songs!: Song[]
 
   @Column()

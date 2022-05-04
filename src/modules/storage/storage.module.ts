@@ -8,7 +8,6 @@ import { StorageService } from './application/services/storage.service';
 import { FileSystem } from './application/services/file-system.service';
 import { S3Repository } from './infra/s3/s3.repository';
 import { S3Config } from '../../shared/config/s3.config';
-import { MediaModule } from '../medias/media.module';
 
 @Global()
 @Module({
@@ -18,8 +17,7 @@ import { MediaModule } from '../medias/media.module';
       useFactory: (fileSystem: FileSystem) => ({ storage: new LocalStorageEngine(fileSystem) }),
       inject: [FileSystem]
     }),
-    ConfigModule,
-    MediaModule
+    ConfigModule
   ],
   providers: [
     StorageService,
